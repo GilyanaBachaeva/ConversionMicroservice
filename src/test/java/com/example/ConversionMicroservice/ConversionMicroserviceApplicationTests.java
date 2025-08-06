@@ -8,6 +8,7 @@ class ConversionMicroserviceApplicationTests {
 
 	@Test
 	void contextLoads() {
+		assert true;
 	}
 
 }

@@ -1,0 +1,17 @@
+package com.example.ConversionMicroservice.config;
+
+import io.minio.MinioClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class MinioConfig {
+
+    @Bean
+    public MinioClient minioClient() {
+        return MinioClient.builder()
+                .endpoint("http://minio:9000")
+                .credentials("my-key", "my-password-key")
+                .build();
+    }
+}
