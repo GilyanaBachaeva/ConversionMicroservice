@@ -30,7 +30,7 @@ dependencies {
 }
 
 tasks.bootJar {
-	mainClass.set("com.example.ConversionMicroservice.ConversionMicroserviceApplication")
+	mainClass.set("com.example.ConversionMicroservice.ConversionMicroserviceApplication.java")
 }
 
 tasks.withType<Test> {
