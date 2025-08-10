@@ -1,4 +1,4 @@
-package com.example.ConversionMicroservice.config;
+package com.example.conversionMicroservice.config;
 
 import io.minio.MinioClient;
 import org.springframework.context.annotation.Bean;

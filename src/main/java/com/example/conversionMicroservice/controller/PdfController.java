@@ -1,13 +1,11 @@
-package com.example.ConversionMicroservice.controller;
-import com.example.ConversionMicroservice.service.PdfService;
+package com.example.conversionMicroservice.controller;
+import com.example.conversionMicroservice.service.PdfService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,11 +14,6 @@ public class PdfController {
 
     @PostMapping("/convert")
     public String convertToPdf(@RequestParam("file") MultipartFile file) {
-        try {
-            return pdfService.createPdf(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "Error during conversion";
-        }
+        return pdfService.createPdf(file);
     }
 }

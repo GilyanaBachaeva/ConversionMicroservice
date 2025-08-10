@@ -3,7 +3,8 @@ FROM openjdk:17-jdk-slim AS builder
 WORKDIR /app
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
-COPY /src .
+COPY src/main/java ./src/main/java
+COPY src/main/resources ./src/main/resources
 COPY gradlew .
 COPY gradle/wrapper/ ./gradle/wrapper/
 RUN chmod +x gradlew

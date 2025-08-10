@@ -1,4 +1,4 @@
-package com.example.ConversionMicroservice;
+package com.example.conversionMicroservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

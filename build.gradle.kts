@@ -1,5 +1,6 @@
 plugins {
 	java
+    application
 	id("org.springframework.boot") version "3.5.4"
 	id("io.spring.dependency-management") version "1.1.7"
 }
@@ -30,7 +31,7 @@ dependencies {
 }
 
 tasks.bootJar {
-	mainClass.set("com.example.ConversionMicroservice.ConversionMicroserviceApplication.java")
+	mainClass.set("com.example.conversionMicroservice.ConversionMicroserviceApplication")
 }
 
 tasks.withType<Test> {

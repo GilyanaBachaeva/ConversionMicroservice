@@ -1,4 +1,4 @@
-package com.example.ConversionMicroservice;
+package com.example.conversionMicroservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
