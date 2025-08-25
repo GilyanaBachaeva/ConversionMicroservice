@@ -1,6 +1,8 @@
 package com.example.conversionMicroservice.service;
 
 import com.example.conversionMicroservice.exception.MinioStorageException;
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +18,15 @@ public class MinioService {
     private final MinioClient minioClient;
 
     @Value("${minio.bucket}")
-    private String bucket;
+    private String defaultBucket;
 
-    public void saveToMinIO(byte[] pdfBytes, String fileName) {
+    public void save(byte[] pdfBytes, String fileName, String bucket) {
         try {
+            boolean bucketExists = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucket).build());
+            if (!bucketExists) {
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucket).build());
+            }
+
             minioClient.putObject(
                     PutObjectArgs.builder()
                             .bucket(bucket)
@@ -32,7 +39,7 @@ public class MinioService {
         }
     }
 
-    public String getBucket() {
-        return bucket;
+    public String getDefaultBucket() {
+        return defaultBucket;
     }
 }

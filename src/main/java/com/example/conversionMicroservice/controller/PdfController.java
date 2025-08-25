@@ -13,7 +13,7 @@ public class PdfController {
     private final PdfService pdfService;
 
     @PostMapping("/convert")
-    public String convertToPdf(@RequestParam("file") MultipartFile file) {
-        return pdfService.createPdf(file);
+    public String convertToPdf(@RequestParam("file") MultipartFile file, @RequestParam("bucket") String bucket) {
+        return pdfService.createPdf(file, bucket);
     }
 }

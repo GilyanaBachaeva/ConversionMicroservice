@@ -17,9 +17,9 @@ import java.io.IOException;
 @Service
 public class PdfService {
 
-    private final MinioService minioService;
+    private final BucketService bucketService;
 
-    public String createPdf(MultipartFile file) {
+    public String createPdf(MultipartFile file, String bucket) {
         validateFileType(file);
 
         try {
@@ -35,9 +35,9 @@ public class PdfService {
             byte[] pdfBytes = outputStream.toByteArray();
             String fileName = file.getOriginalFilename().replaceAll
                     ("\\s+", "_").replaceAll("[^a-zA-Z0-9_.-]", "");
-            minioService.saveToMinIO(pdfBytes, fileName);
+            bucketService.saveFileToBucket(bucket, pdfBytes, fileName);
 
-            return "Bucket: " + minioService.getBucket() + ", Path: " + fileName;
+            return "Bucket: " + bucket + ", Path: " + fileName;
         } catch (IOException e) {
             throw new PdfConversionException("Error during PDF conversion: " + e.getMessage());
         } catch (MinioStorageException e) {
@@ -47,8 +47,12 @@ public class PdfService {
 
     private void validateFileType(MultipartFile file) {
         String contentType = file.getContentType();
+        String originalFilename = file.getOriginalFilename();
         if (contentType == null || !contentType.equals("text/plain")) {
             throw new PdfConversionException("Unsupported file type: " + contentType);
+        }
+        if (originalFilename == null || !originalFilename.endsWith(".txt")) {
+            throw new PdfConversionException("Unsupported file extension: " + originalFilename);
         }
     }
 }

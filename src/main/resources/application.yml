@@ -4,9 +4,9 @@ spring:
 
 minio:
   endpoint: http://localhost:9000
-  root_user: my-key
-  root_password: my-password-key
-  bucket: my-bucket
+  root_user: ${MINIO_ROOT_USER:my-key}
+  root_password: ${MINIO_ROOT_PASSWORD:my-password-key}
+  bucket: ${MINIO_BUCKET:my-bucket}
 
 logging:
   level:
