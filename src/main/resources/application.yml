@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: conversion-microservice
+
+minio:
+  endpoint: http://localhost:9000
+  root_user: ${MINIO_ROOT_USER:my-key}
+  root_password: ${MINIO_ROOT_PASSWORD:my-password-key}
+  bucket: ${MINIO_BUCKET:my-bucket}
+
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+
+server:
+  port: 8080
