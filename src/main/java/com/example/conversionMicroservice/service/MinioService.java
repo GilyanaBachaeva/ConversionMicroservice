@@ -38,8 +38,4 @@ public class MinioService {
             throw new MinioStorageException("Error saving file to MinIO: " + e.getMessage());
         }
     }
-
-    public String getDefaultBucket() {
-        return defaultBucket;
-    }
 }

@@ -6,19 +6,15 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class BucketService {
+public class FileStorageService {
 
     private final MinioService minioService;
 
-    public void saveFileToBucket(String bucket, byte[] pdfBytes, String fileName) {
+    public void saveFileToBucket(byte[] pdfBytes, String fileName, String defaultBucket) {
         try {
-            minioService.save(pdfBytes, fileName, bucket);
+            minioService.save(pdfBytes, fileName, defaultBucket);
         } catch (MinioStorageException e) {
-            throw new MinioStorageException("Error saving file to bucket " + bucket + ": " + e.getMessage());
+            throw new MinioStorageException("Error saving file: " + e.getMessage());
         }
-    }
-
-    public String getBucket(String bucket) {
-        return bucket;
     }
 }

@@ -7,6 +7,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +18,12 @@ import java.io.IOException;
 @Service
 public class PdfService {
 
-    private final BucketService bucketService;
+    private final FileStorageService fileStorageService;
 
-    public String createPdf(MultipartFile file, String bucket) {
+    @Value("${minio.bucket}")
+    private String defaultBucket;
+
+    public String createPdf(MultipartFile file) {
         validateFileType(file);
 
         try {
@@ -35,9 +39,9 @@ public class PdfService {
             byte[] pdfBytes = outputStream.toByteArray();
             String fileName = file.getOriginalFilename().replaceAll
                     ("\\s+", "_").replaceAll("[^a-zA-Z0-9_.-]", "");
-            bucketService.saveFileToBucket(bucket, pdfBytes, fileName);
+            fileStorageService.saveFileToBucket(pdfBytes, fileName, defaultBucket);
 
-            return "Bucket: " + bucket + ", Path: " + fileName;
+            return  "PDF успешно сохранен в бакете " + defaultBucket;
         } catch (IOException e) {
             throw new PdfConversionException("Error during PDF conversion: " + e.getMessage());
         } catch (MinioStorageException e) {
